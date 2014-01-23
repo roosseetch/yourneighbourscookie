@@ -37,8 +37,10 @@ gem 'haml'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
-gem 'mongoid', github: 'mongoid/mongoid'
+# gem 'mongoid', github: 'mongoid/mongoid'
+gem 'mongoid', :git => 'git://github.com/mongoid/mongoid.git', :branch => 'master'
 gem 'bson_ext'
+gem 'kaminari'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

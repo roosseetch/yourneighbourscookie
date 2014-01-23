@@ -1,5 +1,10 @@
 Yourneighbourscookie::Application.routes.draw do
-  resources :ip_addresses
+  resources :ip_addresses do
+    collection { post :import_h }
+    collection { post :import_s }
+  end
+
+  root "ip_addresses#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,5 +1,62 @@
-<h1>New ip_address</h1>
+<div class="well well-small">
+  <div class="page-header">
+    <div class="col-lg-1">
+    </div>
+    <h1>Your neighbour's cookies <small>New ip_address</small></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Cookies Like a <small>HASH</small></h3>
 
+    <%= render 'form_import' %>
+    <p></p>
+    <pre>
+{
+  "_id" : "ObjectId(52d96fe559bb1494bf650510)",
+  "ip_src" : "10.1.11.204",
+  "http_host" : "ad.mail.ru",
+  "mrcu" : ["49B752A2C86F7C1720B30100007F"],
+  "p" : ["wCUAAC5/zwAA"],
+  "searchuid" : ["1064036581386399856"],
+  "VID" : ["2DV0GS0uI01B"],
+  "i" : ["AQD60cJSCAAUAAgEASBPAS0ACAcCAwABCAABXQAFAgH"]
+}
+    </pre>
+  </div>
+<%
+=begin %>
 <%= render 'form' %>
+<%
+=end %>
+
+<div class="col-md-6">
+<h3>Cookies Like a <small>STRING</small></h3>
+
+<%= form_tag import_s_ip_addresses_path,  :html => { :role => 'form' }, multipart: true do %>
+  <div class="form-group">
+    <label for="InputCSV">File input</label>
+    <%= file_field_tag :file, :html => { :id => 'InputCSV' } %>
+    <p class="help-block">CSV file fields should be:
+    ip.src,ip.dst,http.host,http.request.uri,http.cookie.</p>
+  </div>
+  <%= submit_tag "Import_s", :html => {:type => 'submit', :class => 'btn btn-default'} %>
+<% end %>
+<p></p>
+    <pre>
+{
+  "_id" : "ObjectId(52d96fe559bb1494bf650510)",
+  "ip_src" : "10.1.11.204",
+  "http_host" : "ad.mail.ru",
+  "mrcu" : ["49B752A2C86F7C1720B30100007F"],
+  "p" : ["wCUAAC5/zwAA"],
+  "searchuid" : ["1064036581386399856"],
+  "VID" : ["2DV0GS0uI01B"],
+  "i" : ["AQD60cJSCAAUAAgEASBPAS0ACAcCAwABCAABXQAFAgH"]
+}
+    </pre>
+</div>
+
+</div>
 
 <%= link_to 'Back', ip_addresses_path %>

@@ -12,6 +12,20 @@ class IpAddressesController < ApplicationController
   def show
   end
 
+  def import_h
+    if request.post? && params[:file].present?
+      IpAddress.import_h(params[:file])
+      redirect_to ip_addresses_path, notice: "Products imported."
+    end
+  end
+
+  def import_s
+    if request.post? && params[:file].present?
+      IpAddress.import_s(params[:file])
+      redirect_to ip_addresses_path, notice: "Products imported."
+    end
+  end
+
   # GET /ip_addresses/new
   def new
     @ip_address = IpAddress.new

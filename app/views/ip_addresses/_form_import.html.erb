@@ -1,0 +1,11 @@
+<%= form_for(:ip_address, url: import_h_ip_addresses_path, :html => { :role => 'form' }) do |f| %>
+
+  <div class="form-group">
+    <%= f.label 'File input', :html => { :for => 'InputCSV' } %>
+    <%= f.file_field :file, :html => { :id => 'InputCSV', :class => 'btn btn-default' } %>
+    <p class="help-block">CSV file fields should be:
+    ip.src,ip.dst,http.host,http.request.uri,http.cookie.</p>
+  </div>
+  <%= f.submit "Import_h", :html => {:type => 'submit', :class => 'btn btn-default'} %>
+
+<% end %>

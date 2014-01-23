@@ -1,4 +1,11 @@
-<h1>Listing ip_addresses</h1>
+<div class="well well-small">
+  <div class="page-header">
+    <div class="col-lg-1">
+    </div>
+    <h1>Your neighbour's cookies <small>Listing ip_addresses</small></h1>
+  </div>
+</div>
+
 
 <table>
   <thead>
@@ -9,6 +16,8 @@
     </tr>
   </thead>
 
+<%
+=begin %>
   <tbody>
     <% @ip_addresses.each do |ip_address| %>
       <tr>
@@ -19,6 +28,8 @@
     <% end %>
   </tbody>
 </table>
+<%
+=end %>
 
 <br>
 
