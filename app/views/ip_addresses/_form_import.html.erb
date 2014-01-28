@@ -1,4 +1,4 @@
-<%= form_for(:ip_address, url: import_h_ip_addresses_path, :html => { :role => 'form' }) do |f| %>
+<%= form_for(:ip_address, url: {action: "import_h"}, :html => { :role => 'form' }) do |f| %>
 
   <div class="form-group">
     <%= f.label 'File input', :html => { :for => 'InputCSV' } %>

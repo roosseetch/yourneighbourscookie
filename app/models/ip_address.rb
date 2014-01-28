@@ -6,6 +6,8 @@ class IpAddress
 
   store_in collection: "ipaddr", database: "hosts"
 
+  paginates_per 10
+
   require 'csv'
 
   def self.import_h(file)

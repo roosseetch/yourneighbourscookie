@@ -5,6 +5,7 @@ class IpAddressesController < ApplicationController
   # GET /ip_addresses.json
   def index
     @ip_addresses = IpAddress.all
+    # @ip_addresses = IpAddress.count
   end
 
   # GET /ip_addresses/1
@@ -13,10 +14,11 @@ class IpAddressesController < ApplicationController
   end
 
   def import_h
-    if request.post? && params[:file].present?
-      IpAddress.import_h(params[:file])
+    if request.post? && params[:ip_address][:file].present?
+      IpAddress.import_h(params[:ip_address][:file])
       redirect_to ip_addresses_path, notice: "Products imported."
     end
+    debugger
   end
 
   def import_s
