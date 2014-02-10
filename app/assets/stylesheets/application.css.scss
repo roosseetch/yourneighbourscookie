@@ -11,3 +11,12 @@
  *= require_self
  *= require_tree .
  */
+
+.the-table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+#scrooll_to_top { position: fixed; top: 90%}
+
+#ip_filter_btn { position: fixed; top: 90%; left: 5%}

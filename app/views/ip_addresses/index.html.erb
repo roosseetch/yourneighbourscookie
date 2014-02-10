@@ -6,7 +6,101 @@
   </div>
 </div>
 
-<% @ip_addresses %>
+<div id="scrooll_to_top">
+    <a href="#" class="btn btn-success" role="button">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+    <p>Top</p>
+    </a>
+</div>
+
+<div class="container">
+  <div class="col-lg-2">
+    <!--Sidebar content-->
+    <%= form_tag ip_addresses_path, :method => :get, :id => 'ip_addresses_form', :html => { :role => 'form' }, multipart: true do %>
+      <div id="ip_filter_btn">
+        <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
+          <span class="glyphicon glyphicon-filter"></span>
+          <p>IP</p>
+        <% end %>
+    </div>
+    <table class="table table-condensed" id="ips_table">
+      <thead>
+        <tr>
+          <th>
+      </th>
+          <th><input type="checkbox" id="checkAll" /> IPs</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @all_ips.each_with_index do |ip, i| %>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= check_box_tag "ips[#{ip}]", 1, @selected_ips.include?(ip), :id => "ips_#{ip}" %> <%= ip %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+    <!--Sidebar content-->
+    </div>
+    <div class="col-lg-10">
+    <!--Body content-->
+    <table class="table table-hover">
+      <caption class="text-right"><%= paginate @ip_addresses %></caption>
+      <thead>
+        <tr>
+          <th>ip_src</th>
+          <th>http_host</th>
+          <th>http_cookie</th>
+        </tr>
+      </thead>
+
+      <tfoot class="text-right">
+        <tr>
+          <td>         </td>
+          <td>         </td>
+          <td><%= paginate @ip_addresses %></td>
+        </tr>
+      </tfoot>
+
+      <tbody>
+        <% @ip_addresses.each do |ip_address| %>
+        <% attr_keys = ip_address.attributes.keys - ip_address.fields.keys %>
+        <tr class="<%= cycle('active', 'success', 'info') -%>">
+          <td><%= ip_address.ip_src %></td>
+          <td><%= ip_address.http_host %>
+            <p></p>
+            <%= content_tag :br, "Cr at: #{ip_address['created_at'].to_formatted_s(:short)}" unless ip_address['created_at'].nil? -%>
+            <%= content_tag :p, "Upd at: #{ip_address['updated_at'].to_formatted_s(:short)}" unless ip_address['created_at'].nil? -%>
+          </td>
+          <% if attr_keys %>
+          <td>
+            <table class="table table-condensed the-table">
+              <tbody>
+                <% attr_keys.each do |key| %>
+                  <% ip_address[key].each do |val| %>
+                    <tr>
+                      <td><%= key %> = <%= truncate("#{val}", length: 300) %></td>
+                    </tr>
+                <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </td>
+          <% end %>
+
+        </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+    <!--Body content-->
+  </div>
+</div>
+
+<%
+=begin %>
 <table>
   <thead>
     <tr>
@@ -16,8 +110,6 @@
     </tr>
   </thead>
 
-<%
-=begin %>
   <tbody>
     <% @ip_addresses.each do |ip_address| %>
       <tr>
@@ -30,7 +122,3 @@
 </table>
 <%
 =end %>
-
-<br>
-
-<%= link_to 'New Ip address', new_ip_address_path %>

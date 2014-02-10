@@ -1,12 +1,17 @@
 class IpAddress
   include Mongoid::Document
-  # include Mongoid::Timestamps
+  include Mongoid::Timestamps
   # include Mongoid::MultiParameterAttributes
   include Mongoid::Attributes::Dynamic
 
-  store_in collection: "ipaddr", database: "hosts"
+  # store_in collection: "ipaddr", database: "hosts"
+  store_in collection: "ipaddrs", database: "hosts"
 
   paginates_per 10
+
+  field :ip_src, type: String
+  field :http_host, type: String
+  field :http_cookie, type: Array
 
   require 'csv'
 
@@ -48,6 +53,7 @@ class IpAddress
     def self.string_to_hash(str)
       str.split(/; /).inject(Hash.new{|h,k|h[k]=''}) do |h, s|
         k,v = s.split('=', 2)
+        k = k.gsub('.','[dot]')
         k += '1'  if k == 'id'|| k == '_id'
         h[k] = v
         # h
