@@ -33,27 +33,28 @@ class IpAddressesController < ApplicationController
     @all_ips = IpAddress.distinct(:ip_src).sort_by { |ip| ip.split(".").map(&:to_i) }
     @selected_ips = params[:ips] || session[:ips] || {}
     @selected_hosts = params[:hosts] || session[:hosts] || ''
-    @selected_hosts = ''
+    # @selected_hosts = ''
     # @selected_ips = params[:ips] || {}
 
     if @selected_ips == {}
       @selected_ips = Hash[@all_ips.map {|ip| [ip, 1]}]
     end
-    # if params[:ips] != session[:ips] and @selected_ips != {}
-    #   session[:ips] = @selected_ips
-    #   flash.keep
-    #   redirect_to :ips => @selected_ips and return
-    # end
+    if params[:ips] != session[:ips] and @selected_ips != {}
+      session[:ips] = @selected_ips
+      flash.keep
+      redirect_to :ips => @selected_ips and return
+    end
     # debugger
-    # if params[:hosts] != session[:hosts] and @selected_hosts != ''
-    #   session[:hosts] = @selected_hosts
-    #   flash.keep
-    #   redirect_to :hosts => @selected_hosts and return
-    # end
+    if params[:hosts] != session[:hosts] and @selected_hosts != ''
+      session[:hosts] = @selected_hosts
+      flash.keep
+      # redirect_to :ips => @selected_ips and return
+    end
 
     if @selected_hosts.empty?
       @ip_addresses = IpAddress.where(ip_src: {"$in" => @selected_ips.keys}).page(params[:page])
     else
+      # @ip_addresses = IpAddress.where(ip_src: {"$in" => @all_ips}).
       @ip_addresses = IpAddress.where(ip_src: {"$in" => @selected_ips.keys}).
       and(http_host: {"$in" => @selected_hosts.gsub(' ', '').split(',')}).page(params[:page])
     end
@@ -172,7 +173,9 @@ class IpAddressesController < ApplicationController
 
   def destroy_multiple
     # debugger
-    params[:ip_del].map {|key,value| value.map{|val| IpAddress.where(id: key).pull(val.split(' ')[0].to_sym => val.split(' ')[1])}}
+    params[:ip_del].map {|key,value| value.map{|val|
+      IpAddress.where(id: key).pull(val.split(' ')[0].to_sym =>
+        val.split(' ')[1] ? val.split(' ')[1] : '')}}
 
     respond_to do |format|
       format.html { redirect_to :back }

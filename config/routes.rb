@@ -5,7 +5,7 @@ Yourneighbourscookie::Application.routes.draw do
     collection { delete 'destroy_multiple' }
   end
 
-  root "ip_addresses#index"
+  root 'ip_addresses#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
