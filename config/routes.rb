@@ -2,6 +2,7 @@ Yourneighbourscookie::Application.routes.draw do
   resources :ip_addresses do
     collection { post :import_h }
     collection { post :import_s }
+    collection { delete 'destroy_multiple' }
   end
 
   root "ip_addresses#index"

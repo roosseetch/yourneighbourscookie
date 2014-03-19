@@ -17,6 +17,20 @@
     word-wrap: break-word;
 }
 
-#scrooll_to_top { position: fixed; top: 90%}
+#scrooll_to_top { position: fixed; z-index: 1; top: 90%}
 
-#ip_filter_btn { position: fixed; top: 90%; left: 5%}
+#ip_filter_btn { position: fixed; z-index: 1; top: 90%; left: 5%}
+
+/*#accordion {position: absolute}*/
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for collapsable panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";
+}

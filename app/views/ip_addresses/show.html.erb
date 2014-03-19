@@ -1,4 +1,71 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_ip_address_path(@ip_address) %> |
+<div class="well well-small">
+  <div class="page-header">
+    <div class="col-lg-1">
+    </div>
+    <h1>Your neighbour's cookies <small>Show Host Cookie Info</small></h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="col-lg-12">
+  <!--Body content-->
+  <%= form_tag destroy_multiple_ip_addresses_path, method: :delete do %>
+    <div id="ip_filter_btn">
+      <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      <p>Del</p>
+      <% end %>
+    </div>
+    <table class="table table-hover table-striped the-table">
+      <tbody>
+        <tr>
+          <td>IP Address</td>
+          <td><%= @ip_address['ip_src'] %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>HTTP Host</td>
+          <td><%= @ip_address['http_host'] %></td>
+          <td></td>
+        </tr>
+        <%= content_tag :tr do -%>
+          <td>Created at</td>
+          <td><%= @ip_address['created_at'] %></td>
+          <td></td>
+        <% end unless @ip_address['created_at'].nil? -%>
+        <%= content_tag :tr do -%>
+          <td>Updated at</td>
+          <td><%= @ip_address['updated_at'] %></td>
+          <td></td>
+        <% end unless @ip_address['updated_at'].nil? -%>
+
+        <tr><td class="info text-center" colspan="2">COOKIES</td></tr>
+
+        <% attr_keys = @ip_address.attributes.keys - @ip_address.fields.keys %>
+        <%# debugger %>
+        <% attr_keys.each do |key| %>
+          <% @ip_address[key].each do |val| %>
+            <tr>
+              <td><%= key %></td>
+              <td><%= val %></td>
+              <!-- <td><%#= check_box_tag "ip_del[#{key}]", 1, true %></td> -->
+              <!-- <td><%#= check_box_tag "ip_del[#{key}]", @ip_address['id'] %></td> -->
+              <td><%= check_box_tag "ip_del[#{@ip_address['id']}][]", key %></td>
+            </tr>
+          <% end %>
+        <% end %>
+        <%= content_tag :tr do -%>
+          <td>Cookies</td>
+          <td><%= @ip_address['http_cookie'] %></td>
+        <% end unless @ip_address['http_cookie'].nil? -%>
+      </tbody>
+    </table>
+    <% end %>
+    <!--Body content-->
+  </div>
+</div>
+
+<%#= link_to 'Edit', edit_ip_address_path(@ip_address) %> |
 <%= link_to 'Back', ip_addresses_path %>
