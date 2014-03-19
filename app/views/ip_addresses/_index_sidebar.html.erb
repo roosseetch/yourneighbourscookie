@@ -16,7 +16,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-        <%= text_area_tag :hosts %>
+        <%= text_area_tag :hosts, nil, rows: 7, placeholder: "Specify hosts through the commas ..." %>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
-        <%= text_area_tag :cookies %>
+        <%= text_area_tag :cookies, nil, rows: 7, placeholder: "Not working ..." %>
       </div>
     </div>
   </div>

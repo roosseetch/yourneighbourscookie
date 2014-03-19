@@ -50,9 +50,7 @@
             <tr>
               <td><%= key %></td>
               <td><%= val %></td>
-              <!-- <td><%#= check_box_tag "ip_del[#{key}]", 1, true %></td> -->
-              <!-- <td><%#= check_box_tag "ip_del[#{key}]", @ip_address['id'] %></td> -->
-              <td><%= check_box_tag "ip_del[#{@ip_address['id']}][]", key %></td>
+              <td><%= check_box_tag "ip_del[#{@ip_address['id']}][]", [key,val] %></td>
             </tr>
           <% end %>
         <% end %>
